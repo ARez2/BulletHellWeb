@@ -259,5 +259,10 @@ position = Vector2( -16, 16 )
 visible = false
 scale = Vector2( 0.09375, 0.09375 )
 frames = SubResource( 3 )
-frame = 1
+frame = 2
 playing = true
+
+[node name="FloorCheck" type="RayCast2D" parent="."]
+position = Vector2( 0, 7 )
+enabled = true
+cast_to = Vector2( 0, 5 )
