@@ -15,6 +15,8 @@ func add_bullet(bullet) -> void:
 
 
 func add_particles(parts : CPUParticles2D, pos : Vector2) -> void:
+	if parts == null or is_instance_valid(parts):
+		return
 	if get_node_or_null("Particles") == null:
 		var b = Node.new()
 		b.name = "Particles"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scenes/Room/NormalRoom.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://Assets/crosshair.png" type="Texture" id=4]
 [ext_resource path="res://Scenes/Utils/PressurePlate.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/crosshair_inner.png" type="Texture" id=6]
-[ext_resource path="res://Assets/industrial.v2.png" type="Texture" id=7]
 
 [node name="World" type="Node2D" groups=["world"]]
 
@@ -18,7 +17,6 @@ OneShot = false
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 88, 280 )
-Gravity = 0
 
 [node name="BulletHolder" type="Node" parent="." groups=["bullet_holder"]]
 
@@ -52,9 +50,5 @@ margin_right = 173.0
 margin_bottom = 255.0
 text = "Toggle
 Gravity"
-
-[node name="Industrialv2" type="Sprite" parent="."]
-position = Vector2( 456, 192 )
-texture = ExtResource( 7 )
 
 [connection signal="trigger" from="PressurePlate" to="Player" method="_on_PressurePlate_trigger"]

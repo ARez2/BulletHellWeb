@@ -6,15 +6,23 @@ class_name Player
 export var Sensitivity := 10 # 65 for 1:1 scale
 export var MaxSpeed := 800
 export var Gravity := 10
+export var FloorSpeed := 4
+export var FloorDeAccel := 13.0
+export var AirSpeed := 1
+export var AirDeAccel := 10
+export var JumpPower := 400
+export var MinJumpMouseMovement := 50
 
 # ----------- NORMAL -----------
 var pressed_down := false
 var mouse_movement := Vector2()
 var initial_pos := Vector2()
-var velocity := Vector2()
+var horizontal_velocity := Vector2()
+var vertical_velocity := Vector2()
+var last_velocity := Vector2()
 var playersize := 8
 var tilemap_size := 16
-var min_vel_diff := 50
+var min_vel_diff := 25
 var last_side_hit = 0.0
 
 # ----------- ONREADY -----------
@@ -50,21 +58,40 @@ func _physics_process(delta: float) -> void:
 	
 	# ----------- VELOCITY CALC -----------
 	var v_len := 0.0
+	var mouse_pos = get_viewport().get_mouse_position()
 	if pressed_down:
-		var mouse_pos = get_viewport().get_mouse_position()
-		velocity = initial_pos.direction_to(mouse_pos)
-		velocity *= (mouse_pos - initial_pos).length() * 4
+		horizontal_velocity = initial_pos.direction_to(mouse_pos)
+		if is_on_floor() or on_floor:
+			horizontal_velocity *= initial_pos.distance_to(mouse_pos) * FloorSpeed
+			#horizontal_velocity.y = 0
 		
-		crosshair_inner.global_position = mouse_pos
-		crosshair_outer.global_position = initial_pos
+			if mouse_movement.y < -MinJumpMouseMovement and on_floor:
+				jump()
+		else:
+			vertical_velocity.y += Gravity
+			horizontal_velocity *= initial_pos.distance_to(mouse_pos) * AirSpeed
+			
 	else:
-		velocity = velocity * 0.97
-		velocity.y += Gravity
-		mouse_movement = Vector2.ZERO
+		if is_on_floor() or on_floor:
+			horizontal_velocity = horizontal_velocity.linear_interpolate(Vector2.ZERO, FloorDeAccel * delta)
+			vertical_velocity.y = 0
+		else:
+			vertical_velocity.y += Gravity
+			horizontal_velocity = horizontal_velocity.linear_interpolate(Vector2.ZERO, AirDeAccel * delta)
+	
+	vertical_velocity.x = 0
+	horizontal_velocity.y = 0
+	
+	horizontal_velocity.x = clamp(horizontal_velocity.x, -MaxSpeed, MaxSpeed)
+	vertical_velocity.y = clamp(vertical_velocity.y, -MaxSpeed, MaxSpeed)
+	
+	var velocity := horizontal_velocity + vertical_velocity
 	v_len = velocity.length()
 	
 	
 	# ----------- VISUAL STUFF -----------
+	crosshair_inner.global_position = mouse_pos
+	crosshair_outer.global_position = initial_pos
 	crosshair_inner.visible = pressed_down
 	crosshair_outer.visible = pressed_down
 	
@@ -73,15 +100,13 @@ func _physics_process(delta: float) -> void:
 			$Sprite.play("run")
 		else:
 			$Sprite.play("idle")
-	else:
-		$Sprite.play("jump")
 	
-	if velocity != Vector2.ZERO:
-		$Sprite.flip_h = velocity.x < 0
+	if horizontal_velocity != Vector2.ZERO:
+		$Sprite.flip_h = horizontal_velocity.x < 0
 	
 	
 	# ----------- MOVE -----------
-	velocity = move_and_slide(velocity + mouse_movement)# - mouse_movement
+	velocity = move_and_slide(velocity)
 	
 	
 	# ----------- POST MOVE -----------
@@ -91,6 +116,7 @@ func _physics_process(delta: float) -> void:
 	  and v_len > 100:
 		smash(v_len)
 	mouse_movement = Vector2.ZERO
+	last_velocity = velocity
 
 
 
@@ -109,6 +135,12 @@ func smash(v_len) -> void:
 			for y in range(-smash_radius, smash_radius):
 				RoomsManager.damage_cell(pos + Vector2(x, y), v_len)
 		camera.add_trauma(.2)
+
+
+func jump():
+	print("Jump")
+	$Sprite.play("jump")
+	vertical_velocity.y = -JumpPower
 
 
 func take_damage(amt) -> void:

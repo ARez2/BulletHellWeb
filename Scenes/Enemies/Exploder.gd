@@ -22,6 +22,8 @@ func _physics_process(delta: float) -> void:
 func explode() -> void:
 	exploding = true
 	yield(get_tree().create_timer(TimeBeforeExplosion), "timeout")
+	if !is_instance_valid(self):
+		return
 	var p = $CPUParticles2D
 	remove_child(p)
 	yield(get_tree(), "physics_frame")
