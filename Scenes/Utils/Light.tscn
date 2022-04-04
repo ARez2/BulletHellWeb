@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scenes/Utils/Light.gd" type="Script" id=1]
+[ext_resource path="res://Assets/white_circle.png" type="Texture" id=2]
+
+[sub_resource type="OpenSimplexNoise" id=2]
+
+[sub_resource type="NoiseTexture" id=1]
+height = 1
+seamless = true
+noise = SubResource( 2 )
+
+[node name="Light" type="Node2D"]
+script = ExtResource( 1 )
+Col = Color( 0.564706, 0.247059, 0.321569, 0.5 )
+NoiseTex = SubResource( 1 )
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="Sprite7" type="Sprite" parent="Sprites"]
+modulate = Color( 0.564706, 0.247059, 0.321569, 0.5 )
+scale = Vector2( 1.18632, 1.18632 )
+texture = ExtResource( 2 )
+
+[node name="Sprite8" type="Sprite" parent="Sprites"]
+modulate = Color( 0.564706, 0.247059, 0.321569, 0.5 )
+scale = Vector2( 2.30775, 2.30775 )
+z_index = 1
+texture = ExtResource( 2 )
+
+[node name="Sprite9" type="Sprite" parent="Sprites"]
+modulate = Color( 0.564706, 0.247059, 0.321569, 0.5 )
+scale = Vector2( 3.42072, 3.42072 )
+z_index = 2
+texture = ExtResource( 2 )
