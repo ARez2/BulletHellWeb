@@ -4,7 +4,7 @@ class_name Player
 # ====================== VARIABLES ======================
 # ----------- EXPORTS -----------
 export var Sensitivity := 10 # 65 for 1:1 scale
-export var MaxSpeed := 800
+export var MaxSpeed := 500
 export var Gravity := 10
 export var FloorSpeed := 4
 export var FloorDeAccel := 13.0
@@ -60,15 +60,20 @@ func _physics_process(delta: float) -> void:
 	var v_len := 0.0
 	var mouse_pos = get_viewport().get_mouse_position()
 	if pressed_down:
-		horizontal_velocity = initial_pos.direction_to(mouse_pos)
+		var dir = initial_pos.direction_to(mouse_pos)
+		var dist = initial_pos.distance_to(mouse_pos)
+		horizontal_velocity = dir
 		if is_on_floor() or on_floor:
-			horizontal_velocity *= initial_pos.distance_to(mouse_pos) * FloorSpeed
-			#horizontal_velocity.y = 0
-		
+			horizontal_velocity *= dist * FloorSpeed
+
 			if mouse_movement.y < -MinJumpMouseMovement and on_floor:
 				jump()
 		else:
-			vertical_velocity.y += Gravity
+			var grav_multi := 1.0
+			var down_dist = clamp(dist, 0, 10)
+			if dir.angle_to(Vector2.DOWN) < PI/2:
+				grav_multi = down_dist / 10
+			vertical_velocity.y += Gravity * grav_multi
 			horizontal_velocity *= initial_pos.distance_to(mouse_pos) * AirSpeed
 			
 	else:
@@ -125,6 +130,8 @@ func smash(v_len) -> void:
 	last_side_hit = 0.0
 	$Dust.look_at($Dust.global_position + get_slide_collision(0).normal)
 	$Dust.restart()
+	vertical_velocity.y *= 0.5
+	print(vertical_velocity.y)
 	var tilemap = get_slide_collision(0).collider as TileMap
 	if tilemap is DestructibleTilemap:
 		var pos = tilemap.world_to_map(global_position)
@@ -145,7 +152,3 @@ func jump():
 
 func take_damage(amt) -> void:
 	print("Dmg: ", amt)
-
-
-func _on_PressurePlate_trigger() -> void:
-	Gravity = 0 if Gravity == 10 else 10

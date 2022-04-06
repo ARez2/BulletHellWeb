@@ -1,7 +1,7 @@
 extends TileMap
 class_name DestructibleTilemap
 
-export var HP = 500
+export var HP = 1000
 var damage_status = {}
 
 var parts := preload("res://Scenes/Utils/TilemapDestroyParticles.tscn")
