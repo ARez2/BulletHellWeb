@@ -12,24 +12,24 @@ noise = SubResource( 2 )
 
 [node name="Light" type="Node2D"]
 script = ExtResource( 1 )
-Col = Color( 0.564706, 0.247059, 0.321569, 0.5 )
+Col = Color( 0.964706, 0.964706, 0.964706, 0.5 )
 NoiseTex = SubResource( 1 )
 
 [node name="Sprites" type="Node2D" parent="."]
 
 [node name="Sprite7" type="Sprite" parent="Sprites"]
-modulate = Color( 0.564706, 0.247059, 0.321569, 0.5 )
-scale = Vector2( 1.18632, 1.18632 )
+modulate = Color( 0.964706, 0.964706, 0.964706, 0.5 )
+scale = Vector2( 1.33977, 1.33977 )
 texture = ExtResource( 2 )
 
 [node name="Sprite8" type="Sprite" parent="Sprites"]
-modulate = Color( 0.564706, 0.247059, 0.321569, 0.5 )
-scale = Vector2( 2.30775, 2.30775 )
+modulate = Color( 0.964706, 0.964706, 0.964706, 0.5 )
+scale = Vector2( 2.71708, 2.71708 )
 z_index = 1
 texture = ExtResource( 2 )
 
 [node name="Sprite9" type="Sprite" parent="Sprites"]
-modulate = Color( 0.564706, 0.247059, 0.321569, 0.5 )
-scale = Vector2( 3.42072, 3.42072 )
+modulate = Color( 0.964706, 0.964706, 0.964706, 0.5 )
+scale = Vector2( 4.07421, 4.07421 )
 z_index = 2
 texture = ExtResource( 2 )

@@ -56,6 +56,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
+Globals="*res://Autoload/Globals.gd"
 RoomsManager="*res://Autoload/RoomsManager.tscn"
 ObjectManager="*res://Autoload/ObjectManager.gd"
 
@@ -63,8 +64,8 @@ ObjectManager="*res://Autoload/ObjectManager.gd"
 
 window/size/width=180
 window/size/height=320
-window/size/test_width=360
-window/size/test_height=640
+window/size/test_width=720
+window/size/test_height=1280
 window/handheld/orientation="portrait"
 window/stretch/mode="2d"
 window/stretch/aspect="keep"

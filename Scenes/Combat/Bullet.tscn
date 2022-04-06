@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/Combat/Bullet.gd" type="Script" id=1]
-[ext_resource path="res://Assets/industrial.v2.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Tileset/original_uv_textured.png" type="Texture" id=2]
+[ext_resource path="res://palette_swap.material" type="Material" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 4.0
@@ -14,10 +15,11 @@ damping = 0.9973
 NumBounces = 0
 
 [node name="Sprite" type="Sprite" parent="."]
+material = ExtResource( 3 )
 scale = Vector2( 0.7, 0.7 )
 texture = ExtResource( 2 )
 region_enabled = true
-region_rect = Rect2( 208.82, 257, 14.1803, 14 )
+region_rect = Rect2( 208, 256, 16, 16 )
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )

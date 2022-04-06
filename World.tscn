@@ -1,12 +1,16 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/Room/NormalRoom.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Player/Cam.gd" type="Script" id=3]
 [ext_resource path="res://Assets/crosshair.png" type="Texture" id=4]
+[ext_resource path="res://palette_swap.material" type="Material" id=5]
 [ext_resource path="res://Assets/crosshair_inner.png" type="Texture" id=6]
 
+[sub_resource type="CameraTexture" id=6]
+
 [node name="World" type="Node2D" groups=["world"]]
+material = ExtResource( 5 )
 
 [node name="NormalRoom" parent="." instance=ExtResource( 1 )]
 
@@ -37,3 +41,11 @@ texture = ExtResource( 4 )
 [node name="Inner" type="Sprite" parent="CanvasLayer/Crosshair"]
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 6 )
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="TextureRect" parent="CanvasLayer2"]
+material = ExtResource( 5 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = SubResource( 6 )

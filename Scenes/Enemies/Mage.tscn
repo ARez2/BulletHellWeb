@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Assets/industrial.v2.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Tileset/original_uv_textured.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Combat/BulletSpawner.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Enemies/Mage.gd" type="Script" id=3]
+[ext_resource path="res://palette_swap.material" type="Material" id=4]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -40,7 +41,7 @@ tracks/0/keys = {
 script = ExtResource( 3 )
 
 [node name="BulletSpawner" parent="." instance=ExtResource( 2 )]
-rotation = 263.056
+rotation = 281.507
 NumSpawnpoints = 3
 DistFromCenter = 15.0
 RotateSpeed = 0.65
@@ -50,6 +51,7 @@ BulletSinusSpeed = true
 BulletScale = 1.5
 
 [node name="Sprite" type="Sprite" parent="."]
+material = ExtResource( 4 )
 texture = ExtResource( 1 )
 hframes = 4
 region_enabled = true
