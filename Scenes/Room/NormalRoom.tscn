@@ -30,6 +30,7 @@ position = Vector2( 72, 128 )
 position = Vector2( 152, 96 )
 
 [node name="ActivateRandomLaser" type="Timer" parent="." index="5"]
+wait_time = 3.0
 autostart = true
 
 [connection signal="timeout" from="ActivateRandomLaser" to="." method="_on_ActivateRandomLaser_timeout"]

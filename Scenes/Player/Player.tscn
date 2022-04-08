@@ -339,7 +339,7 @@ position = Vector2( -16, 16 )
 visible = false
 scale = Vector2( 0.09375, 0.09375 )
 frames = SubResource( 3 )
-frame = 3
+frame = 1
 playing = true
 
 [node name="FloorCheck" type="RayCast2D" parent="."]
@@ -369,5 +369,6 @@ script = ExtResource( 8 )
 
 [node name="SmashSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+volume_db = -15.0
 script = ExtResource( 8 )
 PitchRandomizeVal = 0.3

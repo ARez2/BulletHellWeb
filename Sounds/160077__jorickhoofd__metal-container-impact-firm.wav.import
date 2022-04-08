@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/160077__jorickhoofd__metal-container-impact-firm.wav-d0c6560aaad35908ae36bc81ab8731cd.sample"
+
+[deps]
+
+source_file="res://Sounds/160077__jorickhoofd__metal-container-impact-firm.wav"
+dest_files=[ "res://.import/160077__jorickhoofd__metal-container-impact-firm.wav-d0c6560aaad35908ae36bc81ab8731cd.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

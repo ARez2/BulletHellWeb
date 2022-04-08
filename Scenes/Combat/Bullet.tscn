@@ -4,7 +4,7 @@
 [ext_resource path="res://Assets/Tileset/original_uv_textured.png" type="Texture" id=2]
 [ext_resource path="res://palette_swap.material" type="Material" id=3]
 [ext_resource path="res://Scenes/RandomizedAudioPlayer.gd" type="Script" id=4]
-[ext_resource path="res://Sounds/impactMetal_000.ogg" type="AudioStream" id=5]
+[ext_resource path="res://Sounds/160077__jorickhoofd__metal-container-impact-firm.wav" type="AudioStream" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 4.0
@@ -45,8 +45,10 @@ shape = SubResource( 1 )
 
 [node name="ImpactSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
-volume_db = -10.0
+volume_db = 6.0
+pitch_scale = 2.06
 script = ExtResource( 4 )
+PitchRandomizeVal = 0.8
 
 [connection signal="screen_exited" from="VisibilityNotifier" to="." method="_on_VisibilityNotifier_screen_exited"]
 [connection signal="timeout" from="DieAfter" to="." method="queue_free"]

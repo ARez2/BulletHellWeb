@@ -11,7 +11,7 @@ export var FloorDeAccel := 13.0
 export var AirSpeed := 1
 export var AirDeAccel := 10
 export var JumpPower := 400
-export var MinJumpMouseMovement := 10
+export var MinJumpMouseMovement := 15
 
 # ----------- NORMAL -----------
 var pressed_down := false
@@ -68,13 +68,16 @@ func _physics_process(delta: float) -> void:
 		var dist = initial_pos.distance_to(mouse_pos)
 		var in_top_half = mouse_pos.y < initial_pos.y
 		var can_jump = dir.angle_to(Vector2.RIGHT) >= deg2rad(20) or dir.angle_to(Vector2.LEFT) >= deg2rad(20)
+		can_jump = can_jump and on_floor
+		
 		horizontal_velocity = dir
 		if is_on_floor() or on_floor:
 			horizontal_velocity *= dist * FloorSpeed
 			vertical_velocity.y = 0
+			
 			if mouse_movement.y < -MinJumpMouseMovement and \
-			on_floor and \
-			can_jump:
+			can_jump and \
+			in_top_half:
 				jump()
 		else:
 			var grav_multi := 1.0

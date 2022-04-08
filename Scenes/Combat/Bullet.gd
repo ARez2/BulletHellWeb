@@ -58,10 +58,11 @@ func _on_VisibilityNotifier_screen_exited() -> void:
 func die() -> void:
 	is_dying = true
 	var tween = Tween.new()
-	add_child(tween)
-	tween.interpolate_property($Sprite, "scale", $Sprite.scale, Vector2.ZERO, 0.2, Tween.TRANS_EXPO)
-	tween.start()
-	yield(tween, "tween_all_completed")
+	call_deferred("add_child", tween)
+	if tween.is_inside_tree():
+		tween.interpolate_property($Sprite, "scale", $Sprite.scale, Vector2.ZERO, 0.2, Tween.TRANS_EXPO)
+		tween.start()
+		yield(tween, "tween_all_completed")
 	self.queue_free()
 
 
