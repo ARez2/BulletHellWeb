@@ -22,9 +22,9 @@ func init():
 
 
 func _on_ActivateRandomLaser_timeout() -> void:
-	if !Hazards:
+	if !Hazards or !active:
 		return
 	for l in lasers:
 		l.enabled = false
-	for i in range(rand_range(0, lasers.size() - 1)):
+	for _i in range(rand_range(0, lasers.size() - 1)):
 		lasers[rand_range(0, lasers.size() - 1)].enabled = true

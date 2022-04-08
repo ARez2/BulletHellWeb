@@ -25,6 +25,9 @@ var palettes = {
 var palette_swap_mat = preload("res://palette_swap.material")
 onready var current_palette = palettes.keys()[0] setget set_current_palette
 
+var detail_color = Color.white
+
+
 func _ready() -> void:
 	rng.randomize()
 	set_random_palette()
@@ -35,7 +38,11 @@ func set_random_palette():
 	set_current_palette(key)
 
 
-func set_current_palette(new):
+func set_current_palette(new : StreamTexture):
 	current_palette = new
 	palette_swap_mat.set_shader_param("palette", new)
 	VisualServer.set_default_clear_color(palettes.get(new).clear_color)
+	var img := new.get_data()
+	img.lock()
+	detail_color = img.get_pixel(320, 437)
+	img.unlock()

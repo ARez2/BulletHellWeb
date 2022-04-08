@@ -7,16 +7,16 @@ export var TimeBeforeExplosion := 1
 var exploding = false
 var player = null
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if player == null:
 		return
 	if !exploding:
 		var velocity = global_position.direction_to(player.global_position)
 		velocity *= Speed
-		move_and_slide(velocity)
+		velocity = move_and_slide(velocity)
 	
-	if global_position.distance_to(player.global_position) < ExplodeDist:
-		explode()
+		if global_position.distance_to(player.global_position) < ExplodeDist:
+			explode()
 		
 
 func explode() -> void:
@@ -26,7 +26,6 @@ func explode() -> void:
 		return
 	var p = $CPUParticles2D
 	remove_child(p)
-	yield(get_tree(), "physics_frame")
 	for body in $PlayerDetect.get_overlapping_bodies():
 		if body.has_method("take_damage"):
 			body.take_damage(ExplosionDamage)

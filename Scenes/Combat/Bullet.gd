@@ -13,7 +13,7 @@ export var speed := 5.0
 export var SinusSpeed = false
 
 var frame = 0
-
+var is_dying = false
 var time_since_bounce := 0.0
 
 func _ready() -> void:
@@ -27,6 +27,8 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if is_dying:
+		return
 	time_since_bounce += delta
 	var s = 1
 	if SinusSpeed:
@@ -34,7 +36,7 @@ func _physics_process(delta: float) -> void:
 	speed = speed * damping
 	var velocity = dir * (s * speed)
 	
-	move_and_slide(velocity, Vector2.UP, true)
+	velocity = move_and_slide(velocity, Vector2.UP, true)
 
 	if get_slide_count() > 0:
 		for i in range(get_slide_count()):
@@ -43,6 +45,7 @@ func _physics_process(delta: float) -> void:
 				dir = dir.bounce(collision.normal)
 				bounces_left -= 1
 				time_since_bounce = 0.0
+				$ImpactSound.play()
 			elif bounces_left == 0:
 				die()
 	
@@ -53,17 +56,17 @@ func _on_VisibilityNotifier_screen_exited() -> void:
 
 
 func die() -> void:
+	is_dying = true
+	var tween = Tween.new()
+	add_child(tween)
+	tween.interpolate_property($Sprite, "scale", $Sprite.scale, Vector2.ZERO, 0.2, Tween.TRANS_EXPO)
+	tween.start()
+	yield(tween, "tween_all_completed")
 	self.queue_free()
-
-
-func _on_Area_area_entered(area: Area2D) -> void:
-	if area.owner is Player:
-		area.owner.take_damage(damage)
-		if DelOnDmg:
-			die()
-
 
 
 func _on_PlayerDetector_body_entered(body: Node) -> void:
 	if body is Player:
-		die()
+		body.take_damage(damage)
+		if DelOnDmg:
+			die()

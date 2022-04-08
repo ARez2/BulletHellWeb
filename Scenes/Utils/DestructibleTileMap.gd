@@ -22,7 +22,6 @@ func damage_cell(c_pos : Vector2, dmg : float):
 
 func destroy_cell(c_pos : Vector2):
 	var p = parts.instance()
-	p.get_node("Timer").connect("timeout", p, "queue_free")
 	add_child(p)
 	var to_world = map_to_world(c_pos)
 	p.global_position = to_world

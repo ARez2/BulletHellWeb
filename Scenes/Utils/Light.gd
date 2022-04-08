@@ -2,9 +2,10 @@ tool
 extends Node2D
 class_name PixelLight
 
+const DEFAULT_COLOR = Color(0.96, 0.96, 0.96, 0.5)
 export (float, 0, 100) var Size := 10.0 setget set_size
 export (int, 0, 100) var Rings := 3 setget set_rings
-export var Col : Color = Color(1, 0.31, 0.47, 0.5) setget set_color
+export var Col : Color = DEFAULT_COLOR setget set_color
 export var Tex : Texture
 
 export var NoiseScroll := 5
@@ -19,6 +20,9 @@ var offset = 0.0
 
 
 func _ready() -> void:
+	if Col == DEFAULT_COLOR:
+		Col = Globals.detail_color
+		Col.a = 0.5
 	redraw()
 
 

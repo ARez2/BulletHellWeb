@@ -13,7 +13,7 @@ var current_room = null
 
 func _ready() -> void:
 	for r in Rooms:
-		for i in range(r):
+		for _i in range(r):
 			RoomsWeighted.append(Rooms.get(r))
 	
 	for c in get_tree().get_nodes_in_group("world")[0].get_children():
@@ -62,10 +62,10 @@ func set_current_room(room):
 	current_room = room
 	current_room.active = true
 	
-	clear_up_old_rooms(current_room)
+	clear_up_old_rooms()
 
 
-func clear_up_old_rooms(current_room):
+func clear_up_old_rooms():
 	for r in currently_generated:
 		#if !currently_generated.has(r) or !is_instance_valid(currently_generated.get(r)):
 		#	continue
@@ -109,5 +109,5 @@ func destroy_cell(c_pos):
 
 func _on_AutoClean_timeout() -> void:
 	var t = Thread.new()
-	t.start(self, "clear_up_old_rooms", current_room)
+	t.start(self, "clear_up_old_rooms")
 	t.wait_to_finish()

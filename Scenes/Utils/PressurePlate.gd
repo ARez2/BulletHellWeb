@@ -36,11 +36,11 @@ func _process(delta: float) -> void:
 			$CPUParticles2D.restart()
 
 
-func _on_Area2D_body_entered(body: Node) -> void:
+func _on_Area2D_body_entered(_body: Node) -> void:
 	body_inside = true
 
 
-func _on_Area2D_body_exited(body: Node) -> void:
+func _on_Area2D_body_exited(_body: Node) -> void:
 	body_inside = false
 	if !OneShot:
 		$TextureProgress.tint_progress = Color.white

@@ -1,6 +1,6 @@
 extends Node2D
 
-var enabled = false
+var enabled = false setget set_enabled
 var t = 0.0
 export var dmg = 10
 
@@ -16,10 +16,15 @@ func _ready() -> void:
 	laser.add_point(ray.position)
 
 
-func _physics_process(delta: float) -> void:
-	t += delta
+func set_enabled(new):
+	enabled = new
 	laser.visible = enabled
 	ray.enabled = enabled
+	$Sound.playing = enabled
+
+
+func _physics_process(delta: float) -> void:
+	t += delta
 	if enabled:
 		laser.width = target_width * sin(30 * t) + target_width*2
 		laser.width = clamp(laser.width, 0, 8)

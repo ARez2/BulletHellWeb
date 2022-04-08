@@ -17,7 +17,7 @@ func _physics_process(delta: float) -> void:
 	$Sprite.flip_h = velocity.x < 0
 	
 	velocity = direction * Speed
-	move_and_slide(velocity)
+	velocity = move_and_slide(velocity)
 	
 	for i in range(get_slide_count()):
 		var col = get_slide_collision(i)

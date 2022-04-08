@@ -3,7 +3,7 @@ extends KinematicBody2D
 
 onready var player : Player = get_tree().get_nodes_in_group("player")[0]
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	$BulletSpawner.look_at(player.global_position)
 	$Sprite.flip_h = player.global_position.x < global_position.x
 	$Light.position.x = 2.5 * sign(global_position.x - player.global_position.x)

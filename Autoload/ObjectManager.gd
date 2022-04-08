@@ -15,7 +15,7 @@ func add_bullet(bullet) -> void:
 
 
 func add_particles(parts : CPUParticles2D, pos : Vector2) -> void:
-	if parts == null or is_instance_valid(parts):
+	if parts == null or !is_instance_valid(parts):
 		return
 	if get_node_or_null("Particles") == null:
 		var b = Node.new()
@@ -30,3 +30,9 @@ func add_particles(parts : CPUParticles2D, pos : Vector2) -> void:
 	parts.global_position = pos
 	timer.start()
 	parts.restart()
+
+
+func create_freeze_time(time : float = 0.07):
+	get_tree().paused = true
+	yield(get_tree().create_timer(time), "timeout")
+	get_tree().paused = false

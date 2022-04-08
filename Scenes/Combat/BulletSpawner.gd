@@ -39,7 +39,7 @@ func set_spawnpoints(new):
 	
 	var angle = 360 / new
 	var current_angle = 0.0
-	for i in range(new):
+	for _i in range(new):
 		var pt = Position2D.new()
 		add_child(pt)
 		pt.set_owner(self)
